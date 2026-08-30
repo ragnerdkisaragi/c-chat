@@ -15,3 +15,8 @@ generate chatlog for this chatroom
 until the user ctrl+C to exit
 
 after creation, the chatroom should be listening for new users to join.
+
+
+# TODO 
+system send msg to user with timestamp
+
