@@ -33,7 +33,7 @@ void *handle_client(void *arg) {
     // Ask for username
     pthread_mutex_lock(&clients_mutex);
     memset(msg, 0, sizeof(msg));
-    strcpy(msg, "Hello, please enter your username: \n");
+    strcpy(msg, "Hello, please enter your username: ");
     send(sock, msg, strlen(msg), 0);
     pthread_mutex_unlock(&clients_mutex);
 
@@ -65,14 +65,14 @@ void *handle_client(void *arg) {
         return NULL;
     }
     memset(msg, 0, sizeof(msg));
-    snprintf(msg, sizeof(msg), "Welcome, %s! You can now join or create a chatroom.\n", username);
+    snprintf(msg, sizeof(msg), "Welcome, %s! You can now join or create a chatroom.", username);
     send(sock, msg, strlen(msg), 0);
     pthread_mutex_unlock(&clients_mutex);
 
     // Ask for chatroom name
     memset(msg, 0, sizeof(msg));
     pthread_mutex_lock(&clients_mutex);
-    snprintf(msg, sizeof(msg), "Please enter the chatroom name you want to join or create: \n");
+    snprintf(msg, sizeof(msg), "Please enter the chatroom name you want to join or create: ");
     send(sock, msg, strlen(msg), 0);
     pthread_mutex_unlock(&clients_mutex);
 
@@ -103,7 +103,7 @@ void *handle_client(void *arg) {
 
     // Announce join
     char join_msg[BUFFER_SIZE];
-    snprintf(join_msg, sizeof(join_msg), "📢 %s has joined the chatroom.\n", username);
+    snprintf(join_msg, sizeof(join_msg), "[System]: %s has joined the chatroom.\n", username);
     broadcast_to_chatroom(room, join_msg);
 
     // Listen for messages
@@ -112,7 +112,7 @@ void *handle_client(void *arg) {
         int bytes_received = recv(sock, buffer, sizeof(buffer) - 1, 0);
         if (bytes_received <= 0) {
             printf("Client %s disconnected.\n", username);
-            snprintf(buffer, sizeof(buffer), "📢 %s has left the chatroom.\n", username);
+            snprintf(buffer, sizeof(buffer), "[System]: %s has left the chatroom.\n", username);
             broadcast_to_chatroom(room, buffer);
             break;
         }
@@ -121,7 +121,7 @@ void *handle_client(void *arg) {
 
         if (strcmp(buffer, "exit") == 0) {
             printf("Client %s exited the chatroom.\n", username);
-            snprintf(buffer, sizeof(buffer), "📢 %s has left the chatroom.\n", username);
+            snprintf(buffer, sizeof(buffer), "[System]: %s has left the chatroom.\n", username);
             broadcast_to_chatroom(room, buffer);
             break;
         }

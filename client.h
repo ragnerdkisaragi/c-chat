@@ -11,7 +11,7 @@
 #include "user.h"
 #include "chatroom.h"
 
-#define PORT 12345
+#define PORT 63214
 #define BUFFER_SIZE 1024
 
 #endif

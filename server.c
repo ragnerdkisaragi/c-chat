@@ -7,6 +7,12 @@ int main() {
     socklen_t addrlen = sizeof(address);
     pthread_t thread_id;
 
+    // record server localtime
+    struct tm* local;
+    time_t t = time(NULL);
+    // Get the localtime
+    local = localtime(&t);
+
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == 0) {
         perror("socket failed");
@@ -27,7 +33,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    printf("Broadcast server listening on port %d...\n", PORT);
+    printf("%s Broadcast server listening on port %d...\n", asctime(local), PORT);
 
     while (1) {
         client_fd = accept(server_fd, (struct sockaddr *)&address, &addrlen);
