@@ -13,5 +13,7 @@
 
 #define PORT 63214
 #define BUFFER_SIZE 1024
+#define SERVER_IP4 "192.168.178.32"
+#define SERVER_IP6 "2404:4408:9900:4c0d:6a5b:35ff:fec0:96a1"
 
 #endif
