@@ -3,6 +3,7 @@ Main runs a host
 2. join chatroom
 3. exit
 
+
 if 1.
 generate a chatroom number, prompt the user to generate an optional chatroom password
 
