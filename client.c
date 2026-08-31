@@ -14,6 +14,8 @@ void *receive_messages(void *arg) {
         }
         buffer[valread] = '\0';
         //printf("[Debug] Received %d bytes\n", valread);
+        printf("\033[1A");
+        printf("\033[2W");
         printf("> %s\n", buffer);
     }
     return NULL;
