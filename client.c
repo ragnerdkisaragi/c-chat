@@ -2,7 +2,6 @@
 
 int sock;
 
-
 void *receive_messages(void *arg) {
     char buffer[BUFFER_SIZE];
     while (1) {
