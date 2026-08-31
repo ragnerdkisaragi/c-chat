@@ -10,8 +10,7 @@
 #include <time.h>
 #include "user.h"
 #include "chatroom.h"
+#include "param.h"
 
-#define PORT 63214
-#define BUFFER_SIZE 1024
 
 #endif

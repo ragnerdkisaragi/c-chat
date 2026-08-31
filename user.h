@@ -9,8 +9,7 @@
 #include <arpa/inet.h>
 #include <ctype.h>
 #include "chatroom.h"
-
-#define BUFFER_SIZE 1024
+#include "param.h"
 
 typedef struct {
     int socket_fd;
