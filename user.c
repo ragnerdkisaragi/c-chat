@@ -1,5 +1,9 @@
 #include "user.h"
 
+/*
+ * Part of the server that handles client connection, keep track of what chatroom each client connected to and what chatroom they are in rn.
+*/
+
 ClientInfo clients[MAX_CLIENTS];
 int client_count = 0;
 pthread_mutex_t clients_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -26,8 +30,8 @@ void *handle_client(void *arg) {
     free(arg);
 
     char buffer[BUFFER_SIZE];
-    char username[50] = {0};
-    char chatroom_name[50] = {0};
+    char *username = (char*)malloc(50);
+    char *chatroom_name = (char*)malloc(50);
     char msg[BUFFER_SIZE];
 
     // Ask for username
@@ -105,6 +109,14 @@ void *handle_client(void *arg) {
     char join_msg[BUFFER_SIZE];
     snprintf(join_msg, sizeof(join_msg), "[System]: %s has joined the chatroom.\n", username);
     broadcast_to_chatroom(room, join_msg);
+    
+  // Add client to track client info
+    pthread_mutex_lock(&clients_mutex);
+    clients[client_count].socket_fd = sock;
+    clients[client_count].username = username;
+    clients[client_count].chatroom = chatroom_name;
+    client_count++;
+    pthread_mutex_unlock(&clients_mutex);
 
     // Listen for messages
     while (1) {

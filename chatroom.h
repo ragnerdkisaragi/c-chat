@@ -11,8 +11,10 @@
 #include <sys/stat.h>  // mkdir
 #include <errno.h>
 
+// param of server: server can host 10 chatrooms at same time, max client of 50 at same time
 #define MAX_CHATROOMS 10
 #define MAX_CLIENTS 50
+
 #define BUFFER_SIZE 1024
 
 typedef struct {
