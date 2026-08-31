@@ -2,7 +2,7 @@
 
 int sock;
 
-void *receive_messages(void *arg) {
+void *receive_messages() {
     char buffer[BUFFER_SIZE];
     while (1) {
         memset(buffer, 0, BUFFER_SIZE);

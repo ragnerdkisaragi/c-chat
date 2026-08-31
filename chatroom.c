@@ -1,11 +1,15 @@
 #include "chatroom.h"
 
+/*
+ * Part of the server that handles chatroom created by user
+*/
+
 Chatroom chatrooms[MAX_CHATROOMS];
 static int chatroom_count = 0;
 pthread_mutex_t chatrooms_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void init_logs() {
-    // Create logs directory if not exists
+    // TODO: Create logs directory if not exists
     mkdir("logs", 0777);
 
     pthread_mutex_lock(&chatrooms_mutex);

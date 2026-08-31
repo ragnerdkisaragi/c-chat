@@ -30,8 +30,8 @@ void *handle_client(void *arg) {
     free(arg);
 
     char buffer[BUFFER_SIZE];
-    char *username = (char*)malloc(50);
-    char *chatroom_name = (char*)malloc(50);
+    char username[50] = {0};
+    char chatroom_name[50] = {0};
     char msg[BUFFER_SIZE];
 
     // Ask for username
@@ -110,12 +110,12 @@ void *handle_client(void *arg) {
     snprintf(join_msg, sizeof(join_msg), "[System]: %s has joined the chatroom.\n", username);
     broadcast_to_chatroom(room, join_msg);
     
-  // Add client to track client info
+  // TODO: Add client to track client info
     pthread_mutex_lock(&clients_mutex);
-    clients[client_count].socket_fd = sock;
-    clients[client_count].username = username;
-    clients[client_count].chatroom = chatroom_name;
-    client_count++;
+		ClientInfo *c = &clients[client_count++];
+    c->socket_fd = sock;
+		strncpy(c->username, username, sizeof(c->username)-1);
+		strncpy(c->chatroom, room, sizeof(c->chatroom)-1);
     pthread_mutex_unlock(&clients_mutex);
 
     // Listen for messages
@@ -145,7 +145,7 @@ snprintf(formatted, sizeof(formatted), "[%s]: %.*s", username, (int)(sizeof(form
         broadcast_to_chatroom(room, formatted);
     }
 
-    // Remove client from list
+    // TODO: Remove client from list and free memory allocated for their info
     pthread_mutex_lock(&clients_mutex);
     for (int i = 0; i < client_count; i++) {
         if (clients[i].socket_fd == sock) {
