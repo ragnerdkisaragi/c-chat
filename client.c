@@ -34,8 +34,7 @@ int main() {
     // Server address setup
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(PORT);
-    inet_pton(AF_INET, SERVER_IP4, &server_addr.sin_addr);
-    //inet_pton(AF_INET6, SERVER_IP6, &server_addr.sin_addr);
+    inet_pton(AF_INET, SERVER_TEST, &server_addr.sin_addr); // use AF_INET6 instead of AF_INET if want to use ipv6
 
     // Connect to server
     if (connect(sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
